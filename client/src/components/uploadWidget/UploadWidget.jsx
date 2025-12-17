@@ -6,23 +6,28 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (!loaded) {
-      const uwScript = document.getElementById("uw");
-      if (!uwScript) {
-        const script = document.createElement("script");
-        script.setAttribute("async", "");
-        script.setAttribute("id", "uw");
-        script.src = "https://upload-widget.cloudinary.com/global/all.js";
-        script.addEventListener("load", () => setLoaded(true));
-        document.body.appendChild(script);
-      } else {
-        setLoaded(true);
-      }
+    // Check if Cloudinary is already available
+    if (window.cloudinary) {
+      setLoaded(true);
+      return;
     }
-  }, [loaded]);
+
+    const uwScript = document.getElementById("uw");
+    if (!uwScript) {
+      const script = document.createElement("script");
+      script.setAttribute("async", "");
+      script.setAttribute("id", "uw");
+      script.src = "https://upload-widget.cloudinary.com/global/all.js";
+      script.addEventListener("load", () => setLoaded(true));
+      document.body.appendChild(script);
+    } else {
+      // If script exists, assume it will load or is loading
+      uwScript.addEventListener("load", () => setLoaded(true));
+    }
+  }, []);
 
   const initializeCloudinaryWidget = () => {
-    if (loaded) {
+    if (loaded && window.cloudinary) {
       var myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error, result) => {
@@ -34,6 +39,12 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
       );
 
       myWidget.open();
+    } else {
+      console.error("Cloudinary script not loaded yet!");
+      // Fallback: try to verify if it loaded in the meantime
+      if (window.cloudinary) {
+        setLoaded(true);
+      }
     }
   };
 
