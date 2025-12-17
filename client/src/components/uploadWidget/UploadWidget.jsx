@@ -6,24 +6,37 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if Cloudinary is already available
-    if (window.cloudinary) {
-      setLoaded(true);
-      return;
-    }
+    // Helper to set loaded
+    const checkCloudinary = () => {
+      if (window.cloudinary) {
+        setLoaded(true);
+        return true;
+      }
+      return false;
+    };
 
-    const uwScript = document.getElementById("uw");
+    // 1. Check immediately
+    if (checkCloudinary()) return;
+
+    // 2. Setup script if missing
+    let uwScript = document.getElementById("uw");
     if (!uwScript) {
       const script = document.createElement("script");
       script.setAttribute("async", "");
       script.setAttribute("id", "uw");
       script.src = "https://upload-widget.cloudinary.com/global/all.js";
-      script.addEventListener("load", () => setLoaded(true));
+      script.addEventListener("load", () => checkCloudinary());
       document.body.appendChild(script);
-    } else {
-      // If script exists, assume it will load or is loading
-      uwScript.addEventListener("load", () => setLoaded(true));
     }
+
+    // 3. Poll every 100ms for up to 5 seconds to catch lazy loading or race conditions
+    const intervalId = setInterval(() => {
+      if (checkCloudinary()) {
+        clearInterval(intervalId);
+      }
+    }, 100);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const initializeCloudinaryWidget = () => {
