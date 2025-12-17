@@ -33,13 +33,7 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
         }
       );
 
-      document.getElementById("upload_widget").addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+      myWidget.open();
     }
   };
 
