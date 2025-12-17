@@ -1,0 +1,79 @@
+@import "../../responsive.scss";
+
+.sliderCard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    min-width: 250px;
+    max-width: 250px;
+
+    /* Assuming these will be set by parent, but putting defaults here */
+
+    .imageContainer {
+        width: 100%;
+        height: 180px;
+
+        .mainImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .textContainer {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+
+        .address {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #888;
+
+            img {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        .user {
+            position: absolute;
+            top: -25px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+}

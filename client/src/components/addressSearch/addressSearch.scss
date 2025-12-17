@@ -1,0 +1,96 @@
+.addressSearch {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+
+  .addressInput {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #fece51;
+      box-shadow: 0 0 0 3px rgba(254, 206, 81, 0.1);
+    }
+  }
+
+  .loading {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 10px 15px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .suggestionItem {
+      padding: 12px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #fece5115;
+      }
+
+      .locationIcon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .locationName {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .noResults {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 12px 15px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+  }
+}
