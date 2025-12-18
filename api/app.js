@@ -10,6 +10,11 @@ import messageRoute from "./routes/message.route.js";
 
 const app = express();
 
+console.log("--- APP CONFIG ---");
+console.log("CLIENT_URL:", process.env.CLIENT_URL);
+console.log("PORT:", process.env.PORT);
+console.log("------------------");
+
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
