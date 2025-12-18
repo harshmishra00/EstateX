@@ -38,7 +38,10 @@ function Card({ item }) {
           <img src="/pin.png" alt="" />
           <span>{item.address}</span>
         </p>
-        <p className="price">₹ {item.price}</p>
+        <p className="price">
+          ₹ {item.price}
+          <span className={`type ${item.type}`}>{item.type === "buy" ? "For Sale" : "For Rent"}</span>
+        </p>
         <div className="bottom">
           <div className="features">
             <div className="feature">
